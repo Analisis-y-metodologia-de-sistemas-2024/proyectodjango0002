@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Confirmación de Compra{% endblock %}
+
+{% block content %}
+<div class="container mt-4 text-center">
+    <h1>¡Gracias por tu compra!</h1>
+    <p class="lead">Tu compra ha sido procesada exitosamente.</p>
+    <h3>Total pagado: ${{ total }}</h3>
+    <div class="mt-4">
+        <a href="{% url 'home' %}" class="btn btn-primary">Volver a la tienda</a>
+    </div>
+</div>
+{% endblock %}

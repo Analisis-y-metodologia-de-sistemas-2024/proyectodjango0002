@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Registro - Mi Tienda{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card mt-4">
+            <div class="card-header text-center">
+                <h2>Registro</h2>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="d-grid">
+                        <button class="btn btn-primary" type="submit">Registrarse</button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-center">
+                <p>¿Ya tienes una cuenta? <a href="{% url 'login' %}">Iniciar sesión</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
