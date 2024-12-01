@@ -1,0 +1,31 @@
+sequenceDiagram
+    participant Administrador
+    participant Controlador
+    participant ProductoModel
+    participant BaseDatos
+
+    %% Agregar Producto
+    Administrador ->> Controlador: Solicitar agregar un nuevo producto
+    Controlador ->> ProductoModel: Crear un nuevo producto
+    ProductoModel ->> BaseDatos: Guardar producto en Base de Datos
+    BaseDatos -->> ProductoModel: Confirmación de creación
+    ProductoModel -->> Controlador: Producto creado con éxito
+    Controlador -->> Administrador: Confirmación - Producto agregado
+
+    %% Modificar Producto
+    Administrador ->> Controlador: Solicitar modificar un producto existente
+    Controlador ->> ProductoModel: Obtener producto por ID
+    ProductoModel ->> BaseDatos: Consultar datos del producto
+    BaseDatos -->> ProductoModel: Devolver información del producto
+    ProductoModel ->> BaseDatos: Actualizar producto con nuevos datos
+    BaseDatos -->> ProductoModel: Confirmación de actualización
+    ProductoModel -->> Controlador: Producto actualizado con éxito
+    Controlador -->> Administrador: Confirmación - Producto modificado
+
+    %% Eliminar Producto
+    Administrador ->> Controlador: Solicitar eliminar un producto
+    Controlador ->> ProductoModel: Obtener producto por ID
+    ProductoModel ->> BaseDatos: Eliminar producto de la Base de Datos
+    BaseDatos -->> ProductoModel: Confirmación de eliminación
+    ProductoModel -->> Controlador: Producto eliminado con éxito
+    Controlador -->> Administrador: Confirmación - Producto eliminado
