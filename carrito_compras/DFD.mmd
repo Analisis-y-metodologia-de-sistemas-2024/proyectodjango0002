@@ -1,0 +1,15 @@
+graph TD
+    %% Actores principales
+    Usuario -->|Añade Producto| ProcesoAgregar[Proceso: Añadir Producto al Carrito]
+    Usuario -->|Comprar| ProcesoComprar[Proceso: Comprar]
+    Administrador -->|Gestionar Productos| BaseDatos[(Base de Datos de Productos)]
+
+    %% Proceso Añadir Producto al Carrito
+    ProcesoAgregar -->|Consulta Disponibilidad| BaseDatos
+    ProcesoAgregar -->|Añadir Producto| Carrito[(Carrito de Compras)]
+    ProcesoAgregar -->|Confirmación| Usuario
+
+    %% Proceso Comprar Productos
+    ProcesoComprar -->|Actualizar Carrito| Carrito
+    ProcesoComprar -->|Actualizar Inventario| BaseDatos
+    ProcesoComprar -->|Confirmación de Compra| Usuario
