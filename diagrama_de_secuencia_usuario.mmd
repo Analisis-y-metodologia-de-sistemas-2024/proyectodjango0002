@@ -1,0 +1,37 @@
+sequenceDiagram
+    participant Usuario
+    participant Controlador
+    participant CarritoModel
+    participant ProductoModel
+    participant BaseDatos
+
+    %% Añadir Producto al Carrito
+    Usuario ->> Controlador: Solicitar agregar producto al carrito
+    Controlador ->> ProductoModel: Consultar disponibilidad del producto
+    ProductoModel ->> BaseDatos: Verificar existencia en Base de Datos
+    BaseDatos -->> ProductoModel: Devolver información del producto
+    ProductoModel -->> Controlador: Confirmar disponibilidad
+
+    alt Producto disponible
+        Controlador ->> CarritoModel: Añadir producto al carrito del usuario
+        CarritoModel ->> BaseDatos: Actualizar el carrito en la Base de Datos
+        BaseDatos -->> CarritoModel: Confirmación de actualización
+        CarritoModel -->> Controlador: Producto añadido con éxito
+        Controlador -->> Usuario: Confirmación - Producto añadido
+    else Producto no disponible
+        ProductoModel -->> Controlador: Producto sin stock
+        Controlador -->> Usuario: Error - Producto no disponible
+    end
+
+    %% Comprar Productos
+    Usuario ->> Controlador: Solicitar compra de los productos del carrito
+    Controlador ->> CarritoModel: Consultar productos en el carrito
+    CarritoModel ->> BaseDatos: Obtener productos del carrito
+    BaseDatos -->> CarritoModel: Productos en el carrito
+    CarritoModel -->> Controlador: Detalles de los productos
+
+    Controlador ->> ProductoModel: Actualizar cantidades en inventario
+    ProductoModel ->> BaseDatos: Reducir cantidad de productos
+    BaseDatos -->> ProductoModel: Confirmación de actualización
+
+    Controlador -->> Usuario: Confirmación - Compra realizada con éxito
