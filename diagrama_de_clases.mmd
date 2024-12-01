@@ -1,0 +1,42 @@
+classDiagram
+    class Producto {
+        +int id
+        +string nombre
+        +string categoria
+        +decimal precio
+        +string descripcion
+        +int stock
+        +string imagen
+        +boolean activo
+        +__str__()
+    }
+
+    class Carrito {
+        +int id
+        +usuario usuario
+        +datetime fecha_creacion
+        +string estado
+        +calcular_total() decimal
+        +obtener_carrito_abierto(usuario) Carrito
+        +__str__()
+    }
+
+    class CarritoProductos {
+        +int id
+        +Carrito carrito
+        +Producto producto
+        +int cantidad
+        +__str__()
+    }
+
+    class Usuario {
+        +int id
+        +string username
+        +string email
+        +string password
+        +__str__()
+    }
+
+    Usuario "1" --> "*" Carrito : posee
+    Carrito "1" --> "*" CarritoProductos : contiene
+    CarritoProductos "1" --> "1" Producto : incluye
